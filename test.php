@@ -166,6 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo '<img src="image/figure.png" alt="Default Profile Image" width="200">'; // 幅を調整
         }
         ?>
+        </div>
         <h3>テスト連続実施日数: <?= $consecutiveDays ?> 日</h3>
     </div>
 <div class="test-container">

@@ -51,6 +51,7 @@ loginCheck();
             <a href="list.php">一覧</a>
             <a href="flashcard.php">単語帳</a>
             <a href="jeu1.php">ゲーム⭐︎</a>
+            <a href="test.php">テスト</a>
             <a href="logout.php">ログアウト</a>
         </div>
     </div>
