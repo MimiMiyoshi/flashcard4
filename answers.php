@@ -7,13 +7,22 @@ loginCheck();
 $pdo = db_conn();
 $user_id = $_SESSION['user_id'];
 
-if (!isset($_GET['pattern_id']) ) {
-
-    echo "パターンIDが指定されていません";
+if (!isset($_SESSION['pattern_id'])) {
+    echo "パターンIDが見つかりません";
     exit;
 }
+$patternId = $_SESSION['pattern_id'];
+var_dump($patternId);
+// セッションからpattern_idを取得
 
-$patternId = $_GET['pattern_id'];
+
+// if (!isset($_GET['pattern_id']) ) {
+
+//     echo "パターンIDが指定されていません";
+//     exit;
+// }
+
+// $patternId = $_GET['pattern_id'];
 
 
 if (!isset($_SESSION['test_result'])) {
@@ -24,7 +33,6 @@ if (!isset($_SESSION['test_result'])) {
 $testResults = $_SESSION['test_result'];
 $score = $testResults['score'];
 $userAnswers = $testResults['user_answers'];
-
 
 
 try {
@@ -44,6 +52,8 @@ try {
     exit;
 
 }
+unset($_SESSION['test_result']);
+unset($_SESSION['pattern_id']);
 ?>
 
 <!DOCTYPE html>
@@ -108,18 +118,27 @@ try {
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($questions as $question): ?>
-                <tr>
-                    <td><?= htmlspecialchars($question['question_text']) ?></td>
-                    <td style="text-align: center;">
-                        <?= htmlspecialchars(
-                            $userAnswers[$question['id']] ?? '未回答'
-                        ) ?>
-                    </td>
-                    <td style="text-align: center;"><?= htmlspecialchars($question['correct_answer']) ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
+    <?php 
+        // // デバッグ: $questions と $userAnswers を確認
+        // echo "<pre>";
+        // echo "Questions:\n";
+        // var_dump($questions);
+        // echo "User Answers:\n";
+        // var_dump($userAnswers);
+        // echo "</pre>";
+    
+    foreach ($questions as $question): ?>
+        <tr>
+            <td><?= htmlspecialchars($question['question_text']) ?></td>
+            <td style="text-align: center;">
+                <?= htmlspecialchars($userAnswers[$question['id']] ?? '未回答') ?>
+            </td>
+            <td style="text-align: center;">
+                <?= htmlspecialchars($question['correct_answer']) ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</tbody>
     </table>
 
         <!-- ここに回答内容の表示を追加 -->

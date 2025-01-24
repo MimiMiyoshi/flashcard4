@@ -62,6 +62,14 @@ $stmt = $pdo->prepare("SELECT * FROM question_patterns ORDER BY RAND() LIMIT 1")
 $stmt->execute();
 $pattern = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    // pattern_idをセッションに保存
+    $_SESSION['pattern_id'] = $pattern['id']; // セッションに保存
+    session_write_close(); // Ensure session data is saved before redirect
+
+    // デバッグ: パターンの内容を確認
+    // echo "1パターンデータ:";
+    // var_dump($pattern);
+
 // 問題を取得
 $stmt = $pdo->prepare("SELECT * FROM questions WHERE pattern_id = ?");
 $stmt->execute([$pattern['id']]);
@@ -73,6 +81,9 @@ $choices = explode(", ", $pattern['choices']);
     exit;
 }
 
+    // デバッグ: パターンの内容を確認
+    // echo "2パターンデータ:";
+    // var_dump($pattern);
 
 // フォーム送信後の処理
 // テストの採点
@@ -91,19 +102,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $score++;
         }
     }
-   // データベースに結果を保存
+
    try {
     $stmt = $pdo->prepare("INSERT INTO test_result (user_id, score, test_date) VALUES (?, ?, ?)");
     $stmt->execute([$user_id, $score, date('Y-m-d H:i:s')]);
+
 
             // 必要なデータをセッションに保存
             $_SESSION['test_result'] = [
                 'score' => $score,
                 'user_answers' => $userAnswers,
             ];
-            var_dump($_SESSION['test_result']);
 
-    header("Location: answers.php?pattern_id=" . $pattern['id'] );
+                // デバッグ: リダイレクト直前のパターンIDを確認
+    // echo "リダイレクト直前のパターンID: " . $pattern['id'];
+    // exit; // デバッグ用に停止
+
+
+    header("Location: answers.php");
     exit;
 
 } catch (PDOException $e) {
@@ -155,7 +171,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <div class="container-wrapper">
     <div class="id-container">
-        <h3><?= $user_id ?>さん、おかえりなさい！</h3>
+        <h2><?= $user_id ?>さん</h2>
+        <h3>お帰りなさい！</h3>
         <div class="profile-container">
         <?php
         if ($profile_image_path) {
@@ -167,10 +184,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         ?>
         </div>
-        <h3>テスト連続実施日数: <?= $consecutiveDays ?> 日</h3>
+        <h2 style="color: palevioletred;">連続記録: <?= $consecutiveDays ?> 日</h2>
     </div>
 <div class="test-container">
-<h2>TEST</h2>
+<h1>TEST</h1>
     <p>（ ）の中に入る適切な単語を選択肢から選んでa〜jで回答してね</p>
     <form method="post">
         <?php foreach ($questions as $index => $question): ?>
