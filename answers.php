@@ -3,18 +3,10 @@ session_start();
 require_once('funcs.php');
 loginCheck();
 
+
 //1.  DB接続します
 $pdo = db_conn();
 $user_id = $_SESSION['user_id'];
-
-if (!isset($_SESSION['pattern_id'])) {
-    echo "パターンIDが見つかりません";
-    exit;
-}
-$patternId = $_SESSION['pattern_id'];
-var_dump($patternId);
-// セッションからpattern_idを取得
-
 
 // if (!isset($_GET['pattern_id']) ) {
 
@@ -29,10 +21,12 @@ if (!isset($_SESSION['test_result'])) {
     echo "テスト結果がありません";
     exit;
 }
-
-$testResults = $_SESSION['test_result'];
-$score = $testResults['score'];
-$userAnswers = $testResults['user_answers'];
+$patternId = $_SESSION['test_result']['pattern_id'];
+$score = $_SESSION['test_result']['score'];
+$userAnswers = $_SESSION['test_result']['user_answers'];
+// $testResults = $_SESSION['test_result'];
+// $score = $testResults['score'];
+// $userAnswers = $testResults['user_answers'];
 
 
 try {

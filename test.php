@@ -63,12 +63,11 @@ $stmt->execute();
 $pattern = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // pattern_idをセッションに保存
-    $_SESSION['pattern_id'] = $pattern['id']; // セッションに保存
-    session_write_close(); // Ensure session data is saved before redirect
+    // $_SESSION['pattern_id'] = $pattern['id']; // セッションに保存
 
     // デバッグ: パターンの内容を確認
     // echo "1パターンデータ:";
-    // var_dump($pattern);
+    var_dump($pattern['id']);
 
 // 問題を取得
 $stmt = $pdo->prepare("SELECT * FROM questions WHERE pattern_id = ?");
@@ -112,12 +111,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['test_result'] = [
                 'score' => $score,
                 'user_answers' => $userAnswers,
+                'pattern_id' => $pattern['id'] 
             ];
-
-                // デバッグ: リダイレクト直前のパターンIDを確認
-    // echo "リダイレクト直前のパターンID: " . $pattern['id'];
-    // exit; // デバッグ用に停止
-
+            session_write_close(); 
 
     header("Location: answers.php");
     exit;
