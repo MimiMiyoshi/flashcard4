@@ -1,0 +1,99 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.choice {
+  display: inline-block;
+  padding: 5px;
+}
+.container-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.test-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%; /* 固定幅から変更 */
+  max-width: 800px; /* 最大幅を設定 */
+  margin: 20px auto; /* 中央配置のため追加 */
+  padding: 30px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+.id-container {
+  width: 25%;
+  height: 150px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+/* ボタンスタイル */
+.button {
+  width: 100%;
+  display: inline-block;
+  margin-top: 30px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background: linear-gradient(
+    60deg,
+    rgba(84, 58, 183, 1) 0%,
+    rgba(0, 172, 193, 1) 100%
+  ); /* 背景のグラデーション */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2); /* 影 */
+  transition: transform 0.2s, box-shadow 0.2s; /* ホバー時のアニメーション */
+}
+
+.choices span {
+  display: inline-block;
+  margin-right: 30px;
+  padding: 5px 10px;
+}
+.result-message5 {
+  font-size: 20px;
+  color: palevioletred;
+  margin: 15px 0;
+  font-weight: bold;
+}
+
+.result-message {
+  font-size: 20px;
+  color: #2196f3;
+  margin: 15px 0;
+  font-weight: bold;
+}
+
+.profile-image {
+    width: 110px;  /* 幅を固定 */
+    height: 170px; /* 高さを大きく設定して縦長に */
+    border-radius: 75px / 100px; /* 縦長の楕円形を作成 */
+    object-fit: cover; /* 画像のアスペクト比を保持 */
+    border: 1px solid #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
